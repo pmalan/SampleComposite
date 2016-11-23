@@ -58,7 +58,15 @@
     <sequence name="main">
         <!-- Receive input from requestor. (Note: This maps to operation defined in SampleBPELProcess.wsdl) -->
         <receive name="receiveInput" partnerLink="samplebpelprocess_client" portType="client:SampleBPELProcess" operation="process" variable="inputVariable" createInstance="yes"/>
-
+        <assign name="Assign1">
+            <documentation>
+                <![CDATA[A]]>
+            </documentation>
+            <copy>
+                <from>$inputVariable.payload/client:input</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/client:result</to>
+            </copy>
+        </assign>
         <!-- 
           Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
         -->
